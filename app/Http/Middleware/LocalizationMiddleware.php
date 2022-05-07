@@ -20,12 +20,15 @@ class LocalizationMiddleware
     {
         $user = Auth::user();
 
-        $locale = $user->getAttributeValue('locale');
+        if($user) {
+            $locale = $user->getAttributeValue('locale');
 
-        if ($locale) {
-          App::setLocale($locale);
-          session()->put('locale', $locale);
+            if ($locale) {
+                App::setLocale($locale);
+                session()->put('locale', $locale);
+            }
         }
+
 
         return $next($request);
     }
